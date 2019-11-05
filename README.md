@@ -6,8 +6,5 @@ This *markdown* file uses the same syntax as the Rmarkdown file, however, this d
 For example you can use the list information
 
 * apples
-         * green apples
-         * fuji
-         * pink ladies
 * oranges
 * bananas
