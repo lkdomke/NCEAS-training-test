@@ -13,10 +13,7 @@ For example you can use the list information
 
 ## New session 
 
-<<<<<<< HEAD
-Now I am including work that I have created in RStudio. I will sync later. I just followed you. The astericks (*) on the script means that I haven't saved the file yet. When I save it, it creates a new "M" in the Git section of RStudio that means the file has been modified. I admire your haircut! its very "swishy" 
-=======
-Now I am including work that I have created in RStudio. I will sync later (pull, push...fetch is so hot right now). I just followed you. The astericks (*) on the script means that I haven't saved the file yet. When I save it, it creates a new "M" in the Git section of RStudio that means the file has been modified. 
->>>>>>> c3f5273e750e420cbbbd934ab9e8b6a1005208b8
+Now I am including work that I have created in RStudio. I will sync later (pull, push...fetch is so hot right now). I just followed you. The astericks (*) on the script means that I haven't saved the file yet. When I save it, it creates a new "M" in the Git section of RStudio that means the file has been modified. I admire your haircut! its very "swishy" 
+
 
 I like your glasses. ;)
