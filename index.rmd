@@ -15,3 +15,13 @@ knitr::opts_chunk$set(echo = TRUE)
 - [Analysis](NCEAS_Ex1.1.html)
 - Mapping
 - Discussion
+
+```{r graphics, fig.align = 'center', echo = FALSE, out.wdith = '55%'}
+# This is including using knitr using R
+knitr::include_graphics("https://seagrant.gso.uri.edu/wp-content/uploads/2018/08/Eelgrass_01.jpg")
+
+```
+
+This is included from my desktop using html
+
+<img src="eel_jelly.jpg" title="Lionsmane in eelgrass" style = "width:200px;height:300px;" class = "center"/>
