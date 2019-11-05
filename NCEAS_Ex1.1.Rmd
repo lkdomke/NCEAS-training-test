@@ -4,9 +4,18 @@ author: "Lia Domke"
 date: "11/4/2019"
 output: html_document
 ---
+# Outline of work: 
+
+* Introduction
+* Data cleaning
+* Data visualization
+* Linear models fit
+* Predict values based on best model
 
 # Introduction
+
 ## What we do:
+
 Our research group works in eelgrass habitats (a marine vascular plant) and often needs to estimate the quality of the eelgrass as a nearshore habitat. In order to do this we look at various morphometric measurements of the eelgrass blades themselves (leaf length) and of the meadow (density). See this [website](http://www.seagrassli.org/ecology/eelgrass/a_shoot.html) to get an understanding of what an eelgrass blade is and which measurements we're talking about. We often will also take samples back to the lab to measure both dry and wet weight of the eelgrass to get an estimate of biomass at different sites. 
 
 ## What we're intersted in: 
@@ -15,7 +24,8 @@ We're curious to see if there is a relationship between *longest* leaf length to
 
 Data available: In 2017 21 sites were surveyed for eelgrass. At each site, 8 - ${0.25^2}$ quadrats were surveyed and 5 entire shoots (i.e. the entire plant that includes multiple leaves) were removed and brought back to the lab to be measured (in cm). Each shoot (n = 840) was weighed to get total fresh and dry biomass (in grams) and *each* leaf on the shoot had its length (cm) and width (cm) measured. 
 
-We are interested in the length of the longest leaf and the dry biomass. 
+We are interested in the length of the longest leaf and the dry biomass.
+
 ## Read in 2017 eelgrass
 ```{r}
 eelgrass <- read.csv("~/Desktop/Grad School/UAF/Data/APECS Master repository/APECS Master repo/ALL_DATA/seagrass_biometrics_CLEAN.csv")
