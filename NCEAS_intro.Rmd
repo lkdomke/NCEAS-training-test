@@ -1,0 +1,80 @@
+---
+title: "Untitled"
+author: "Lia Domke"
+date: "11/4/2019"
+output: html_document
+---
+This is a chunk that specifies how all the following chunks will be formated 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Different R markdown techniques
+Some **bold** text. Have to include a blank line to start new paragraph
+
+Include a [link](http://nceas.ucsb.edu)
+
+Can create bulleted list:
+
+* apple
+    * pink lady
+    * red delicious 
+    * green
+* banana
+* orange
+
+Can also include a numbered list, 
+fruit in the order of priority: 
+
+1. apple
+    * pink lady 
+    * red delicious
+    * green
+2. banana
+3. orange
+
+```{r, results = 'hide', echo = FALSE}
+# Some information
+x <- 17*2 
+y <- 3*4
+
+ans <- x/y
+ans
+```
+## In-line R code
+The results are `r round(ans, 3)`
+
+## LaTeX  examples
+$\sum{x^2}$
+
+This equation "knowledge" is incorporated within R markdown however if you want to knit to pdf rather than html you will need to install a lite version of LaTex (package::tinytex). See help file from [link](https://learning.nceas.ucsb.edu/2019-11-RRCourse/introduction-to-r-and-rmarkdown.html#my-rmarkdown-wont-knit-to-pdf)
+
+# Read in data
+Use `read.csv` to read in tabular data
+
+```{r}
+# Using Rmarkdown the working directory will automatically be where the file folder where the script is stored
+# This saves you from having to write the full directory. If you use relative paths (like this) it makes it easier 
+# to share the working directory (i.e. folders etc) with someone else
+# If you hit "tab" when you are in the parenthesis it will show you what is available within that wd
+bg_chem <- read.csv("BGchem2008data.csv", stringsAsFactors = FALSE)
+# stringsAsFactors argument makes it so that character vectors are NOT converted as factors
+# can use `class` to see how different things are understood by R
+class(bg_chem) 
+# data frame - a list of named vectors (series of columns) that all have the same length 
+# can look at a dataframe in a couples ways: can look at blue arrow in global environment, can view in 
+# viewer - click on frame or View(name). When you look at this NOTHING in your object changes. 
+```
+
+## Look at the details of the data
+```{r}
+# use `head` to look at by default first 6 rows
+head(bg_chem)
+# use `mean` function of the CTD depth and save to variable
+mean_depth <- mean(bg_chem$CTD_Depth)
+# use base r plot to plot data
+plot(bg_chem$CTD_Depth, bg_chem$CTD_Temperature)
+```
+
+
+
