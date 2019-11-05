@@ -12,3 +12,5 @@ For example you can use the list information
 ## New session 
 
 Now I am including work that I have created in RStudio. I will sync later. The astericks on the script means that I haven't saved the file yet. When I save it, it creates a new "M" in the Git section of RStudio that means the file has been modified. 
+
+I like your glasses. ;)
