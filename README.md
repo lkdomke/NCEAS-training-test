@@ -8,3 +8,7 @@ For example you can use the list information
 * apples
 * oranges
 * bananas
+
+## New session 
+
+Now I am including work that I have created in RStudio. I will sync later. 
