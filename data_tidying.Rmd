@@ -1,0 +1,82 @@
+---
+title: "Data Tidying"
+author: "Lia Domke"
+date: "11/6/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, warning = FALSE, message = FALSE}
+# loading in packages
+library(dplyr)
+library(tidyr)
+```
+
+# Outline
+
+# Read and clean data
+```{r}
+catch_original <- read.csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1", 
+                           stringsAsFactors = FALSE)
+
+# if you're on a windows you may need to use the below syntax
+
+# catch_original <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1", 
+                               method = "libcurl"),
+                    stringsAsFactors = FALSE)
+
+head(catch_original)
+# keyboard shortcut for pipe = command + shift + m %>% 
+```
+
+Remove `all` column and `notes` column because they do not contribute any additional information to the dataframe. 
+```{r}
+catch_data <- catch_original %>%  # the pipe operater always puts the original df into the first argument, can specify others
+  dplyr::select(-All, -notesRegCode) # can also use select to tell R what columns to keep (w/o -) 
+
+head(catch_data)
+```
+Quality check of the data
+```{r}
+summary(catch_data) # note R classifies Chinook as a character NOT numeric. 
+```
+## Fix Chinook column
+
+Use `mutate` to fix Chinook column
+
+```{r}
+catch_clean <- catch_data %>% 
+  mutate(Chinook = ifelse(Chinook == "I", 1, Chinook)) %>% 
+  mutate(Chinook = as.numeric(Chinook)) # name of column you're creating or overwriting is FIRST
+
+# "NAs introduced by coercion" means that R got to a character it didn't know how to turn into a numeric, made it a NA
+
+summary(catch_clean)
+```
+Finding the rows that got turned into NA
+```{r}
+i <- which(is.na(catch_clean$Chinook))
+i
+```
+Look at row with Chinook error
+```{r}
+catch_original[i, ] # value of Chinook is an uppercase i 
+```
+
+# Reshape data
+
+```{r}
+catch_long <- catch_clean %>% 
+  pivot_longer(cols = -c(Region, Year), # can use tidyverse info so can say pivot all BUT
+               names_to = "species", 
+               values_to = "count") 
+
+head(catch_long) # 4 columns instead of 7 but is longer than it was before
+```
+
+# Summarize data
+
+# Join to Region Table
