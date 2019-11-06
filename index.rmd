@@ -5,6 +5,8 @@ date: "11/5/2019"
 output: html_document
 ---
 
+do do do do ...
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -25,3 +27,6 @@ knitr::include_graphics("https://seagrant.gso.uri.edu/wp-content/uploads/2018/08
 This is included from my desktop using html
 
 <img src="eel_jelly.jpg" title="Lionsmane in eelgrass" style = "width:200px;height:300px;"/>
+
+### Cheryl's Addition
+texty shmexty
