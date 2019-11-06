@@ -3,6 +3,8 @@ title: "Data Tidying"
 author: "Lia Domke"
 date: "11/6/2019"
 output: html_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
@@ -25,8 +27,8 @@ catch_original <- read.csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/d
 # if you're on a windows you may need to use the below syntax
 
 # catch_original <- read.csv(url("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1", 
-                               method = "libcurl"),
-                    stringsAsFactors = FALSE)
+#                               method = "libcurl"),
+#                    stringsAsFactors = FALSE)
 
 head(catch_original)
 # keyboard shortcut for pipe = command + shift + m %>% 
@@ -77,6 +79,97 @@ catch_long <- catch_clean %>%
 head(catch_long) # 4 columns instead of 7 but is longer than it was before
 ```
 
+```{r}
+catch_wide <- catch_long %>% 
+  pivot_wider(names_from = Year, 
+              values_from = count)
+head(catch_wide)
+```
+
+`rename` count column to `catch_thousands`
+
+```{r}
+catch_long <- catch_long %>% 
+  rename(catch_thousands = count) %>% # new column 
+  mutate(catch = catch_thousands * 1000) %>%
+  dplyr::select(-catch_thousands)
+  
+
+head(catch_long)
+```
+
 # Summarize data
+```{r}
+mean_region <- catch_long %>% 
+  group_by(Region) %>% 
+  summarize(catch_mean = mean(catch), 
+            num_obs = n()) # summarize will do the apply and combine
+
+mean_region
+
+catch_by_species <- catch_long %>% 
+  group_by(species) %>%
+  summarise(catch_sum = sum(catch)) %>% 
+  arrange(desc(catch_sum))
+
+catch_by_species
+```
+
+Total species pre 1900
+
+```{r}
+total_species_pre_1900 <- catch_long %>% 
+  filter(Year < 1900) %>% 
+  group_by(species) %>%
+  summarise(catch_sum = sum(catch)) %>% 
+  arrange(desc(catch_sum))
+
+total_species_pre_1900
+```
 
 # Join to Region Table
+
+Read in region table
+```{r}
+region_defs <- read.csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.303.1", 
+                        stringsAsFactors = F) %>% 
+  select(code, mgmtArea)
+
+head(region_defs)
+```
+
+```{r}
+# catch_joined <- left_join(catch_long, region_defs, by = "Region") # this doesn't work because the names aren't the same in each dataframe
+
+# trimws - removes the white space at the end of words to make joins work better 
+# tolower - makes character vectors to lowercase
+catch_joined <- left_join(catch_long, region_defs, by = c("Region" = "code"))
+```
+
+# Seperate and Unite
+
+```{r}
+site_codes <- data.frame(site = c("HAW-100",
+                                  "HAW-101", 
+                                  "OAH-102",
+                                  "OAH-103",
+                                  "MAI-100"),
+                         stringsAsFactors = F) # these sites codes have multiple pieces of information cant group over island or site nuumber because its stuck together. 
+```
+
+Separate island and site number using `separate`
+
+```{r}
+site_codes_split <- site_codes %>% 
+  separate(site, into = c("island", "site_num"), sep = "-", 
+           remove = F) # needs to have consistent seperator. In this case dash
+site_codes_split
+```
+
+```{r}
+united <- site_codes_split %>% 
+  unite(site_code, island, site_num, sep = "_")
+
+united
+```
+
