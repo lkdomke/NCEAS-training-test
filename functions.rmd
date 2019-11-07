@@ -1,0 +1,74 @@
+---
+title: "functions"
+author: "Lia Domke"
+date: "11/6/2019"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(roxygen2)
+```
+
+Functions
+
+If you're copying and pasting R code within or between scripts you should consider writing generalized functions that can be used over and over again throughout the code or your general work. Remember: "Do not repeat yourself" or DRY concept
+
+```{r}
+airtemps = c(212, 30, 78, 32) #including some known datapoints to make sure the function works appropriately
+# if you wanted celsius for all of these you might have to run this multiple times
+celsius1 <- (airtemps[1] - 32) * 5/9
+celsius2 <- (airtemps[2] - 32) * 5/9
+celsius3 <- (airtemps[3] - 32) * 5/9
+celsius4 <- (airtemps[4] - 32) * 5/9
+```
+
+Create a function to converte farenheit to celsius
+
+Define a set of code you want to reuse and abstracting away what you are repeating 
+fucntions will work on scalers and vectors and will do the iterations (that for loops will do too). 
+For-loops can be useful because you can see the intermediaries and can help de-bug. 
+```{r}
+fahr2celsius <- function(fahr) {
+  celsius <- (fahr - 32) * 5/9 # this is the formula for conversions
+  return(celsius) # tells R to split this result out
+} # does this silently in the background but the function does exist in the environment
+```
+
+Use the function
+```{r}
+celsius_f <- fahr2celsius(airtemps[1])
+celsius_f == celsius1 # do these match?
+
+celsius <- fahr2celsius(airtemps)
+celsius4 == celsius[4]
+```
+
+Function to calculate farenheit from celsius
+```{r}
+#' converts celsius to fahrenheit temperatures
+#'
+#' a little needed but more detailed explanation
+#' goes here.
+#' @param celsius the temperature in degrees celsius to be converted
+#' @return the temperature in fahrenheit
+
+celsius2fahr <- function(celsius) {
+  farenheit <- (celsius * 9/5) + 32
+  return(farenheit)
+}
+
+```
+
+Use the function and check values
+```{r}
+farenheit <- celsius2fahr(celsius)
+farenheit
+farenheit == airtemps
+```
+
